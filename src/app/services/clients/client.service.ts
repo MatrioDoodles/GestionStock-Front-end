@@ -14,6 +14,7 @@ export class Client{
   public phone:string,
   public adress:string,
   public amount_bought:number,
+  public tenantid:number,
   public user:User,
   public orders:Order[],
   public quotations:Quotation[],
@@ -29,13 +30,17 @@ export class ClientService {
   constructor(private httpClient: HttpClient) { }
 
   getAllClients(){
+    if(sessionStorage.getItem('role')=== "SUPER_ADMIN" )
     return this.httpClient
    .get<Client[]>(`${API_URL}/${ENTITY_URL}/GetAllClients`);
+   else
+   return this.httpClient
+    .get<Client[]>(`${API_URL}/${ENTITY_URL}/GetAllClientsT/${sessionStorage.getItem('tenantId')}`);
   }
-  getAllClientsByTenant(tenantId){
-    return this.httpClient
-   .get<Client[]>(`${API_URL}/${ENTITY_URL}/GetAllClientsT/${tenantId}`);
-  }
+  // getAllClientsByTenant(tenantId){
+  //   return this.httpClient
+  //  .get<Client[]>(`${API_URL}/${ENTITY_URL}/GetAllClientsT/${tenantId}`);
+  // }
 
   getClientById(Clientid){
     return this.httpClient

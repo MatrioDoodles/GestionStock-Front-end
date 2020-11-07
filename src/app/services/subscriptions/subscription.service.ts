@@ -9,7 +9,7 @@ export class Subscription{
     public duration:string,
     public starting_date:Date,
     public expiring_date:Date,
-    public tenant_id:number,
+    public tenantid:number,
     public user:User
   ){}
 }

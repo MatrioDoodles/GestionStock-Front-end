@@ -10,7 +10,7 @@ export class History {
     public subject:string,
     public creating_user:User,
     public last_interacting_user:User,
-    public tenant_id:number
+    public tenantid:number
     ) { }
 }
 
@@ -26,14 +26,18 @@ export class HistoryService {
   constructor(private httpClient: HttpClient) { }
 
   getAllHistorys(){
+    if(sessionStorage.getItem('role')=== "SUPER_ADMIN" )
     return this.httpClient
    .get<History[]>(`${API_URL}/${ENTITY_URL}/GetAllHistorys`);
+   else
+   return this.httpClient
+   .get<History[]>(`${API_URL}/${ENTITY_URL}/GetAllHistorysT/${sessionStorage.getItem('tenantId')}`);
   }
 
-  getHistoryByTenantId(tenantId){
-    return this.httpClient
-   .get<History[]>(`${API_URL}/${ENTITY_URL}/GetAllHistorysT/${tenantId}`);
-  }
+  // getHistoryByTenantId(tenantId){
+  //   return this.httpClient
+  //  .get<History[]>(`${API_URL}/${ENTITY_URL}/GetAllHistorysT/${tenantId}`);
+  // }
   getHistoryById(Historyid){
     return this.httpClient
    .get<History>(`${API_URL}/${ENTITY_URL}/${Historyid}`);

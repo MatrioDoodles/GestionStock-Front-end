@@ -23,13 +23,46 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MenuComponent } from './misc/menu/menu.component';
 import { FooterComponent } from './misc/footer/footer.component';
 import { WelcomeComponent } from './misc/welcome/welcome.component';
+import { AddClientComponent } from './clients/add-client/add-client.component';
+import { ListClientsComponent } from './clients/list-clients/list-clients.component';
+import { ListOrdersByClientComponent } from './clients/list-orders-by-client/list-orders-by-client.component';
+import { ListCategoriesComponent } from './categories/list-categories/list-categories.component';
+import { AddCategoryComponent } from './categories/add-category/add-category.component';
+import { AddOrderComponent } from './orders/add-order/add-order.component';
+import { ListOrdersComponent } from './orders/list-orders/list-orders.component';
+import { ListProductsComponent } from './products/list-products/list-products.component';
+import { AddProductComponent } from './products/add-product/add-product.component';
+import { AddSupplierComponent } from './suppliers/add-supplier/add-supplier.component';
+import { ListSuppliersComponent } from './suppliers/list-suppliers/list-suppliers.component';
+import { ListUsersComponent } from './users/list-users/list-users.component';
+import { AddUserComponent } from './users/add-user/add-user.component';
+import { AddWarehouseComponent } from './warehouses/add-warehouse/add-warehouse.component';
+import { ListWarehousesComponent } from './warehouses/list-warehouses/list-warehouses.component';
+import { LoginComponent } from './misc/login/login.component';
+import { HttpInterceptorService } from './services/auth/http-interceptor.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     FooterComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    AddClientComponent,
+    ListClientsComponent,
+    ListOrdersByClientComponent,
+    ListCategoriesComponent,
+    AddCategoryComponent,
+    AddOrderComponent,
+    ListOrdersComponent,
+    ListProductsComponent,
+    AddProductComponent,
+    AddSupplierComponent,
+    ListSuppliersComponent,
+    ListUsersComponent,
+    AddUserComponent,
+    AddWarehouseComponent,
+    ListWarehousesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +86,9 @@ import { WelcomeComponent } from './misc/welcome/welcome.component';
     MatTableModule,
     MatPaginatorModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

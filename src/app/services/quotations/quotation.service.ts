@@ -23,13 +23,17 @@ export class QuotationService {
   constructor(private httpClient: HttpClient) { }
 
   getAllQuotations(){
+    if(sessionStorage.getItem('role')=== "SUPER_ADMIN" )
     return this.httpClient
    .get<Quotation[]>(`${API_URL}/${ENTITY_URL}/GetAllQuotations`);
+   else
+   return this.httpClient
+   .get<Quotation[]>(`${API_URL}/${ENTITY_URL}/GetAllQuotationsT/${sessionStorage.getItem('tenantId')}`);
   }
-  getQuotationByTenantId(tenantId){
-    return this.httpClient
-   .get<Quotation[]>(`${API_URL}/${ENTITY_URL}/GetAllQuotationsT/${tenantId}`);
-  }
+  // getQuotationByTenantId(tenantId){
+  //   return this.httpClient
+  //  .get<Quotation[]>(`${API_URL}/${ENTITY_URL}/GetAllQuotationsT/${tenantId}`);
+  // }
 
   getQuotationById(Quotationid){
     return this.httpClient

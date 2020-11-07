@@ -28,7 +28,10 @@ export class User{
   ){}
 }
 export class Role{
-  constructor(){
+  constructor(
+    public id:number,
+    public label:string
+    ){
 
   }
 }
@@ -39,20 +42,28 @@ export const ENTITY_URL = 'users'
 export class UserService {
 
   constructor(private httpClient: HttpClient) { }
-
-  getAllUsers(){
+  getAllUsers(tenant){
+    if(sessionStorage.getItem('role')=== "SUPER_ADMIN" )
     return this.httpClient
    .get<User[]>(`${API_URL}/${ENTITY_URL}/GetAllUsers`);
-  }
-
-  getUserByTenant(tenant){
-    return this.httpClient
+   else 
+   return this.httpClient
    .post<User[]>(`${API_URL}/${ENTITY_URL}/GetAllUsersT`,tenant);
   }
+
+  // getUserByTenant(tenant){
+  //   return this.httpClient
+  //  .post<User[]>(`${API_URL}/${ENTITY_URL}/GetAllUsersT`,tenant);
+  // }
 
   getUserById(Userid){
     return this.httpClient
    .get<User>(`${API_URL}/${ENTITY_URL}/${Userid}`);
+  }
+
+  getUserByUsername(username){
+    return this.httpClient
+   .get<User>(`${API_URL}/${ENTITY_URL}/searchUserByUsername/${username}`);
   }
 
   UpdateUserBYid(User){

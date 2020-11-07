@@ -10,7 +10,7 @@ export class Warehouse{
     public reference:number,
     public label:string,
     public type:string,
-    public tenant_id:number,
+    public tenantid:number,
     public users:User[]
   ){}
 }
@@ -23,8 +23,12 @@ export class WarehouseService {
   constructor(private httpClient: HttpClient) { }
 
   getAllWarehouses(){
+    if(sessionStorage.getItem('role')=== "SUPER_ADMIN" )
     return this.httpClient
    .get<Warehouse[]>(`${API_URL}/${ENTITY_URL}/GetAllWarehouses`);
+   else
+   return this.httpClient
+   .get<Warehouse[]>(`${API_URL}/${ENTITY_URL}/GetAllWarehousesT/${sessionStorage.getItem('tenantId')}`);
   }
 
   getWarehouseById(Warehouseid){
@@ -32,10 +36,10 @@ export class WarehouseService {
    .get<Warehouse>(`${API_URL}/${ENTITY_URL}/${Warehouseid}`);
   }
 
-  getWarehouseByTenantId(tenantId){
-    return this.httpClient
-   .get<Warehouse[]>(`${API_URL}/${ENTITY_URL}/GetAllWarehousesT/${tenantId}`);
-  }
+  // getWarehouseByTenantId(tenantId){
+  //   return this.httpClient
+  //  .get<Warehouse[]>(`${API_URL}/${ENTITY_URL}/GetAllWarehousesT/${tenantId}`);
+  // }
   UpdateWarehouseBYid(Warehouse){
     return this.httpClient
     .put(`${API_URL}/${ENTITY_URL}/ModWarehouse`,Warehouse);

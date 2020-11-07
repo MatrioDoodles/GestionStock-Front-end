@@ -11,7 +11,7 @@ export class Invoice{
     public id:number,
     public creation_date:Date,
     public pay_date:Date,
-    public tenant_id:number,
+    public tenantid:number,
     public user:User,
     public company:Company,
     public client:Client,
@@ -27,13 +27,17 @@ export class InvoiceService {
   constructor(private httpClient: HttpClient) { }
 
   getAllInvoices(){
+    if(sessionStorage.getItem('role')=== "SUPER_ADMIN" )
     return this.httpClient
    .get<Invoice[]>(`${API_URL}/${ENTITY_URL}/GetAllInvoices`);
+   else
+   return this.httpClient
+   .get<Invoice[]>(`${API_URL}/${ENTITY_URL}/GetAllInvoicesT/${sessionStorage.getItem('tenantId')}`);
   }
-  getAllInvoicesByTenantId(tenantId){
-    return this.httpClient
-   .get<Invoice[]>(`${API_URL}/${ENTITY_URL}/GetAllInvoicesT/${tenantId}`);
-  }
+  // getAllInvoicesByTenantId(tenantId){
+  //   return this.httpClient
+  //  .get<Invoice[]>(`${API_URL}/${ENTITY_URL}/GetAllInvoicesT/${tenantId}`);
+  // }
   getInvoiceById(InvoiceId){
     return this.httpClient
    .get<Invoice>(`${API_URL}/${ENTITY_URL}/${InvoiceId}`);

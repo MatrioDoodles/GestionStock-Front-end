@@ -18,7 +18,7 @@ export class Product{
     public perishable:boolean,
     public amount:number,
     public supply_amount:number,
-    public tenant_id:number,
+    public tenantid:number,
     public supplier:Supplier,
     public warehouse:Warehouse,
     public category:Category,

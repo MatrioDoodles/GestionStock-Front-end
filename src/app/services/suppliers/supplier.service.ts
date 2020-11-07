@@ -13,7 +13,7 @@ export class Supplier{
     public logo:string,
     public description:string,
     public reference:string,
-    public tenant_id:number,
+    public tenantid:number,
     public products:Product[]
   ){}
 }
@@ -26,14 +26,18 @@ export class SupplierService {
   constructor(private httpClient: HttpClient) { }
 
   getAllSuppliers(){
+    if(sessionStorage.getItem('role')=== "SUPER_ADMIN" )
     return this.httpClient
    .get<Supplier[]>(`${API_URL}/${ENTITY_URL}/GetAllSuppliers`);
+   else
+   return this.httpClient
+   .get<Supplier[]>(`${API_URL}/${ENTITY_URL}/GetAllSuppliersT/${sessionStorage.getItem('tenantId')}`);
   }
 
-  getSupplierByTenantId(tenantId){
-    return this.httpClient
-   .get<Supplier[]>(`${API_URL}/${ENTITY_URL}/GetAllSuppliersT/${tenantId}`);
-  }
+  // getSupplierByTenantId(tenantId){
+  //   return this.httpClient
+  //  .get<Supplier[]>(`${API_URL}/${ENTITY_URL}/GetAllSuppliersT/${tenantId}`);
+  // }
   getSupplierById(Supplierid){
     return this.httpClient
    .get<Supplier>(`${API_URL}/${ENTITY_URL}/${Supplierid}`);

@@ -17,7 +17,7 @@ export class Order{
     public creation_date:Date,
     public shipping_date:Date,
     public pay_date:Date,
-    public tenant_id:number,
+    public tenantid:number,
     public user:User,
     public client:Client,
     public company:Company,
@@ -34,8 +34,12 @@ export class OrderService {
   constructor(private httpClient: HttpClient) { }
 
   getAllOrders(){
+    if(sessionStorage.getItem('role')=== "SUPER_ADMIN" )
     return this.httpClient
    .get<Order[]>(`${API_URL}/${ENTITY_URL}/GetAllOrders`);
+   else
+   return this.httpClient
+   .get<Order>(`${API_URL}/${ENTITY_URL}/GetAllOrdersT/${sessionStorage.getItem('tenantId')}`);
   }
 
   getOrderById(Orderid){
@@ -43,10 +47,10 @@ export class OrderService {
    .get<Order>(`${API_URL}/${ENTITY_URL}/${Orderid}`);
   }
 
-  getOrderByTenantId(tenantId){
-    return this.httpClient
-   .get<Order>(`${API_URL}/${ENTITY_URL}/GetAllOrdersT/${tenantId}`);
-  }
+  // getOrderByTenantId(tenantId){
+  //   return this.httpClient
+  //  .get<Order>(`${API_URL}/${ENTITY_URL}/GetAllOrdersT/${tenantId}`);
+  // }
 
   UpdateOrderBYid(Order){
     return this.httpClient

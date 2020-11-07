@@ -8,9 +8,9 @@ export class Category{
   public id:number,
   public label:string,
   public description:string,
-  public tenant_id:number,
+  public tenantid:number,
   public sous_category:Category[],
-  public category_primary:Category,
+  public categoryprimary:Category,
   public products:Product[],
   ){}
 }
@@ -23,13 +23,17 @@ export class CategoryService {
   constructor(private httpClient: HttpClient) { }
 
   getAllCategories(){
+    if(sessionStorage.getItem('role')=== "SUPER_ADMIN" )
     return this.httpClient
    .get<Category[]>(`${API_URL}/${ENTITY_URL}/GetAllCategorys`);
+   else
+   return this.httpClient
+    .get<Category[]>(`${API_URL}/${ENTITY_URL}/GetAllCategorysT/${sessionStorage.getItem('tenantId')}`);
   }
-  getAllCategoriesByTenant(tenantId){
-    return this.httpClient
-   .get<Category[]>(`${API_URL}/${ENTITY_URL}/GetAllCategorysT/${tenantId}`);
-  }
+  // getAllCategoriesByTenant(tenantId){
+  //   return this.httpClient
+  //  .get<Category[]>(`${API_URL}/${ENTITY_URL}/GetAllCategorysT/${tenantId}`);
+  // }
 
   getCategorieById(Catid){
     return this.httpClient

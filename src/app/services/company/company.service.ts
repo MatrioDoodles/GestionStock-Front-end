@@ -14,7 +14,7 @@ export class Company{
     public lang:string,
     public logo:string,
     public phone:string,
-    public tenant_id:number,
+    public tenantid:number,
     public quotations:Quotation[],
     public invoices:Invoice[],
     public users:User[]
@@ -35,6 +35,7 @@ export class CompanyService {
   }
 
   getTenantCompany(tenantId){
+    
     return this.httpClient
    .get<Company[]>(`${API_URL}/${ENTITY_URL}/Company/${tenantId}`);
   }
