@@ -52,7 +52,7 @@ export class QuotationService {
 
   GetAllQuotationByClient(client){
     return this.httpClient
- .post<Quotation[]>(`${API_URL}/${ENTITY_URL}/GetAllQuotationByClient`,client);
+ .get<Quotation[]>(`${API_URL}/${ENTITY_URL}/GetAllQuotationByClient/${client.id}`);
   }
 
   deleteQuotationById(Quotationid){

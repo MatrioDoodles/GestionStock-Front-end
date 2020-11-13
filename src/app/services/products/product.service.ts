@@ -59,15 +59,15 @@ export class ProductService {
   }
   GetProductsByWarehouse(warehouse){
     return this.httpClient
- .post<Product[]>(`${API_URL}/${ENTITY_URL}/GetProductsByWarehouse`,warehouse);
+ .get<Product[]>(`${API_URL}/${ENTITY_URL}/GetProductsByWarehouse/${warehouse.id}`);
   }
   GetProductsBySupplier(supplier){
     return this.httpClient
- .post<Product[]>(`${API_URL}/${ENTITY_URL}/GetProductsBySupplier`,supplier);
+ .get<Product[]>(`${API_URL}/${ENTITY_URL}/GetProductsBySupplier/${supplier.id}`);
   }
   GetProductsByCategory(category){
     return this.httpClient
- .post<Product[]>(`${API_URL}/${ENTITY_URL}/GetProductsByCategory`,category);
+ .get<Product[]>(`${API_URL}/${ENTITY_URL}/GetProductsByCategory/${category.id}`);
   }
 
   deleteProductById(Productid){

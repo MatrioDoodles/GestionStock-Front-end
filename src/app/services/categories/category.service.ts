@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../products/product.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_URL } from '../../app.const';
+import { AuthenticationService } from '../auth/authentication.service';
 
 export class Category{
   constructor(
   public id:number,
   public label:string,
   public description:string,
+  public catprimary:boolean,
   public tenantid:number,
   public sous_category:Category[],
   public categoryprimary:Category,
@@ -20,7 +22,10 @@ export const ENTITY_URL = 'categories'
 })
 export class CategoryService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+              private httpClient: HttpClient,
+              private authService:AuthenticationService
+              ) { }
 
   getAllCategories(){
     if(sessionStorage.getItem('role')=== "SUPER_ADMIN" )
@@ -28,7 +33,7 @@ export class CategoryService {
    .get<Category[]>(`${API_URL}/${ENTITY_URL}/GetAllCategorys`);
    else
    return this.httpClient
-    .get<Category[]>(`${API_URL}/${ENTITY_URL}/GetAllCategorysT/${sessionStorage.getItem('tenantId')}`);
+    .get<Category[]>(`${API_URL}/${ENTITY_URL}/GetAllCategoriesT/${sessionStorage.getItem('tenantId')}`);
   }
   // getAllCategoriesByTenant(tenantId){
   //   return this.httpClient
@@ -41,7 +46,7 @@ export class CategoryService {
   }
   getAllSousCategories(category){
     return this.httpClient
-   .post<Category[]>(`${API_URL}/${ENTITY_URL}/SousCat`,category);
+   .get<Category[]>(`${API_URL}/${ENTITY_URL}/SousCat/${category.id}`);
   }
   UpdateCategorieBYid(category){
     return this.httpClient

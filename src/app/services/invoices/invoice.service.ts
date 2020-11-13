@@ -12,6 +12,7 @@ export class Invoice{
     public creation_date:Date,
     public pay_date:Date,
     public tenantid:number,
+    public total:string,
     public user:User,
     public company:Company,
     public client:Client,

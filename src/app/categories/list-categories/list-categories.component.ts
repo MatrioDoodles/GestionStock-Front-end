@@ -13,7 +13,9 @@ import { Category, CategoryService } from 'src/app/services/categories/category.
 export class ListCategoriesComponent implements OnInit {
 
   displayedColumns: string[] = ['label', 'description', 'catprimaire', 'souscat','listprod','actions'];
-  categories:MatTableDataSource<Category>;
+  categoriesdat:MatTableDataSource<Category>;
+  categories:Category[]
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -23,27 +25,44 @@ export class ListCategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.RetrieveAllCategories();
+
   }
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim() // Remove whitespace
     filterValue = filterValue.toLowerCase() // Datasource defaults to lowercase matches
-    this.categories.filter = filterValue
+    this.categoriesdat.filter = filterValue
   }
 
   RetrieveAllCategories(){
     this.categoryService.getAllCategories().
     subscribe(
       (data: any) => {
-        this.categories = new MatTableDataSource(data); 
-        setTimeout(() => { 
-          this.categories = new MatTableDataSource(data); 
-          this.categories.paginator = this.paginator; 
-          this.categories.sort = this.sort; }); 
+        //this.categoriesdat = new MatTableDataSource(data); 
+        this.categories = data;
+        for(let i=0;i<this.categories.length;i++)
+        {if(!this.categories[i].catprimary){
+          this.categoryService.getAllSousCategories(this.categories[i]).
+          subscribe(
+            (data: Category[]) => {
+              this.categories[i].sous_category = data;
+              setTimeout(() => { 
+                this.categoriesdat = new MatTableDataSource(this.categories); 
+                this.categoriesdat.paginator = this.paginator; 
+                this.categoriesdat.sort = this.sort; }); 
+              
+            }
+          )
+        }
+        }
+        
+         setTimeout(() => { 
+           this.categoriesdat = new MatTableDataSource(this.categories); 
+           this.categoriesdat.paginator = this.paginator; 
+           this.categoriesdat.sort = this.sort; }); 
         }
           
     )
-
   }
   Modifier(SelectedCat:Category){
     this.route.navigate(['addCategory',SelectedCat.id])

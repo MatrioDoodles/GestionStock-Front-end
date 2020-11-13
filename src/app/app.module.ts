@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +17,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
@@ -25,7 +27,6 @@ import { FooterComponent } from './misc/footer/footer.component';
 import { WelcomeComponent } from './misc/welcome/welcome.component';
 import { AddClientComponent } from './clients/add-client/add-client.component';
 import { ListClientsComponent } from './clients/list-clients/list-clients.component';
-import { ListOrdersByClientComponent } from './clients/list-orders-by-client/list-orders-by-client.component';
 import { ListCategoriesComponent } from './categories/list-categories/list-categories.component';
 import { AddCategoryComponent } from './categories/add-category/add-category.component';
 import { AddOrderComponent } from './orders/add-order/add-order.component';
@@ -40,6 +41,8 @@ import { AddWarehouseComponent } from './warehouses/add-warehouse/add-warehouse.
 import { ListWarehousesComponent } from './warehouses/list-warehouses/list-warehouses.component';
 import { LoginComponent } from './misc/login/login.component';
 import { HttpInterceptorService } from './services/auth/http-interceptor.service';
+import { ListInvoicesByClientComponent } from './clients/list-invoices-by-client/list-invoices-by-client.component';
+import { ListQuotationsByClientComponent } from './clients/list-quotations-by-client/list-quotations-by-client.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,6 @@ import { HttpInterceptorService } from './services/auth/http-interceptor.service
     WelcomeComponent,
     AddClientComponent,
     ListClientsComponent,
-    ListOrdersByClientComponent,
     ListCategoriesComponent,
     AddCategoryComponent,
     AddOrderComponent,
@@ -62,7 +64,9 @@ import { HttpInterceptorService } from './services/auth/http-interceptor.service
     AddUserComponent,
     AddWarehouseComponent,
     ListWarehousesComponent,
-    LoginComponent
+    LoginComponent,
+    ListInvoicesByClientComponent,
+    ListQuotationsByClientComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +88,9 @@ import { HttpInterceptorService } from './services/auth/http-interceptor.service
     MatSelectModule,
     HttpClientModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCheckboxModule,
+    CommonModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}

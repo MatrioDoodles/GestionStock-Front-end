@@ -12,7 +12,7 @@ import { Client, ClientService} from '../../services/clients/client.service'
 })
 export class ListClientsComponent implements OnInit {
 
-  displayedColumns: string[] = ['nom', 'phone', 'adress', 'email','actions'];
+  displayedColumns: string[] = ['nom', 'phone', 'adress', 'email','listfactures','listdevis','listcmds','actions'];
   clients:MatTableDataSource<Client>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -25,7 +25,7 @@ export class ListClientsComponent implements OnInit {
     this.RetrieveAllClients();
   }
 
-  applyFilter(filterValue: string) {
+  applyFilterClient(filterValue: string) {
     filterValue = filterValue.trim() // Remove whitespace
     filterValue = filterValue.toLowerCase() // Datasource defaults to lowercase matches
     this.clients.filter = filterValue
@@ -54,7 +54,15 @@ export class ListClientsComponent implements OnInit {
       response => this.RetrieveAllClients()
     );
   }
-  AfficherDetails(SelectedClient){}
+  AfficherFactures(SelectedClient){
+    this.route.navigate(['invoices',SelectedClient])
+  }
+  AfficherDevis(SelectedClient){
+    this.route.navigate(['orders',SelectedClient])
+  }
+  AfficherOrders(SelectedClient){
+    this.route.navigate(['quotations',SelectedClient])
+  }
 }
 
 

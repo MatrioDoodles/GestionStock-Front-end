@@ -4,6 +4,8 @@ import { AddCategoryComponent } from './categories/add-category/add-category.com
 import { ListCategoriesComponent } from './categories/list-categories/list-categories.component';
 import { AddClientComponent } from './clients/add-client/add-client.component';
 import { ListClientsComponent } from './clients/list-clients/list-clients.component';
+import { ListInvoicesByClientComponent } from './clients/list-invoices-by-client/list-invoices-by-client.component';
+import { ListQuotationsByClientComponent } from './clients/list-quotations-by-client/list-quotations-by-client.component';
 import { LoginComponent } from './misc/login/login.component';
 import { WelcomeComponent } from './misc/welcome/welcome.component';
 import { AddOrderComponent } from './orders/add-order/add-order.component';
@@ -25,7 +27,7 @@ const routes: Routes = [
   { path: 'addCategory/:updateElement', component: AddCategoryComponent },
   { path: 'listCategories', component: ListCategoriesComponent },
   { path: 'addOrder/:updateElement', component: AddOrderComponent },
-  { path: 'listOrders', component: ListOrdersComponent },
+  { path: 'listOrders/:client', component: ListOrdersComponent },
   { path: 'addProduct/:updateElement', component: AddProductComponent },
   { path: 'listProducts', component: ListProductsComponent },
   { path: 'addSupplier/:updateElement', component: AddSupplierComponent },
@@ -34,6 +36,8 @@ const routes: Routes = [
   { path: 'listUsers', component: ListUsersComponent },
   { path: 'addWarehouse/:updateElement', component: AddWarehouseComponent },
   { path: 'listWarehouses', component: ListWarehousesComponent },
+  { path: 'invoices/:client', component: ListInvoicesByClientComponent },
+  { path: 'quotations/:client', component: ListQuotationsByClientComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
 ];

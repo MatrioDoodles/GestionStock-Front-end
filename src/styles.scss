@@ -43,3 +43,25 @@ main { height: 100%; overflow-y: auto; }
 .center-divs{
   margin-top: 180px;
 }
+.btn-in{
+  color: #fff;
+  background-color: #138496;
+  border-color: #117a8b;
+}
+.btn-prim{
+  color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+.btn-dan{
+  color: #fff;
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+.btn-war{
+  color: #212529;
+  background-color: #e0a800;
+  border-color: #d39e00;
+}
+// /* Importing Bootstrap SCSS file. */
+// @import '~bootstrap/scss/bootstrap';

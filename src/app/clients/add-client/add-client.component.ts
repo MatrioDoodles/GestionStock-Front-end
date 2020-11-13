@@ -22,7 +22,10 @@ export class AddClientComponent implements OnInit {
   ngOnInit(): void {
     if (this.route.snapshot.params['updateElement'] === '0') {
       this.client = new Client(null, '', '',
-        '', '', null,0,null,null,null,null)
+        '', '', null,Number(sessionStorage.getItem('tenantId')),null,null,null,null)
+        console.log(Number(sessionStorage.getItem('tenantId')))
+        console.log(this.client);
+        
       this.btnname = "Ajouter"
     }
     

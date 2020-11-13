@@ -1,1 +1,38 @@
-<p>add-category works!</p>
+<div class="center-card">
+    <mat-card class="center-card container-lg border" >
+      <mat-card-title style="padding: 20px;">
+              Ajouter une Categorie
+            </mat-card-title>
+            <mat-card-content>
+              <div class="alert alert-warning" *ngIf="formUser.dirty && formUser.invalid">Veuillez Renseigner tous les champs</div>
+              <form  #formUser="ngForm" >
+                <div class="row">
+                  <mat-form-field appearance="outline" class="col">
+                    <mat-label>Libellé Categorie</mat-label>
+                    <input matInput [(ngModel)]="category.label" name="name" required>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="col">
+                      <mat-label>Description Categorie</mat-label>
+                      <input matInput [(ngModel)]="category.description" name="phone" required>
+                  </mat-form-field>
+              </div>
+              <div class="row">
+                <!-- <mat-form-field appearance="outline" class="col"> -->
+                    <mat-checkbox [(ngModel)]="category.catprimary" name="scat" class="col">Sous Categorie</mat-checkbox>
+                <!-- </mat-form-field> -->
+                  <mat-form-field [hidden]="!category.catprimary" appearance="outline" class="col">
+                    <mat-label>Categorie Primaire</mat-label>
+                    <mat-select [(ngModel)]="catprimary" name="catP">
+                        <mat-option *ngFor="let val of categories" value="{{val}}" >{{val.label}}</mat-option> 
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+            </mat-card-content>
+            <mat-card-footer style="padding: 20px;">
+              <button mat-stroked-button (click)="!formUser.invalid && submit()" class="btn-color">{{btnname}}</button>
+              <button mat-stroked-button routerLink="/listClients" >Annuler</button>
+            </mat-card-footer>
+    </mat-card>
+    </div>
+

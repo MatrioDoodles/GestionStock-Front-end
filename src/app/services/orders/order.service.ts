@@ -12,6 +12,7 @@ export class Order{
     public id:number,
     public description:string,
     public paid:boolean,
+    public matricule:string,
     public shipped:boolean,
     public aborted:boolean,
     public creation_date:Date,
@@ -39,7 +40,7 @@ export class OrderService {
    .get<Order[]>(`${API_URL}/${ENTITY_URL}/GetAllOrders`);
    else
    return this.httpClient
-   .get<Order>(`${API_URL}/${ENTITY_URL}/GetAllOrdersT/${sessionStorage.getItem('tenantId')}`);
+   .get<Order[]>(`${API_URL}/${ENTITY_URL}/GetAllOrdersT/${sessionStorage.getItem('tenantId')}`);
   }
 
   getOrderById(Orderid){
@@ -63,7 +64,7 @@ export class OrderService {
   }
   GetOrdersByClient(client){
     return this.httpClient
- .post<Order[]>(`${API_URL}/${ENTITY_URL}/GetOrdersByClient`,client);
+ .get<Order[]>(`${API_URL}/${ENTITY_URL}/GetOrdersByClient/${client.id}`);
   }
 
   deleteOrderById(Orderid){

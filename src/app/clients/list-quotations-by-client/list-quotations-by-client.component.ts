@@ -4,77 +4,62 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Client, ClientService } from 'src/app/services/clients/client.service';
-import { Order, OrderService } from 'src/app/services/orders/order.service';
+import { Quotation, QuotationService } from 'src/app/services/quotations/quotation.service';
 
 @Component({
-  selector: 'app-list-orders',
-  templateUrl: './list-orders.component.html',
-  styleUrls: ['./list-orders.component.scss']
+  selector: 'app-list-quotations-by-client',
+  templateUrl: './list-quotations-by-client.component.html',
+  styleUrls: ['./list-quotations-by-client.component.scss']
 })
-export class ListOrdersComponent implements OnInit {
+export class ListQuotationsByClientComponent implements OnInit {
 
   displayedColumns: string[] = ['nom', 'phone', 'adress', 'email','listfactures','listdevis','listcmds','actions'];
-  orders:MatTableDataSource<Order>;
+  Quotations:MatTableDataSource<Quotation>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   client:Client;
 
-  constructor(private orderService:OrderService,
+  constructor(private QuotationService:QuotationService,
               private clientService:ClientService,
               private router:Router,
               private route:ActivatedRoute) {
    }
 
   ngOnInit(): void {
-    this.RetrieveAllOrders();
+    this.RetrieveAllQuotations();
   }
 
   applyFilterClient(filterValue: string) {
     filterValue = filterValue.trim() // Remove whitespace
     filterValue = filterValue.toLowerCase() // Datasource defaults to lowercase matches
-    this.orders.filter = filterValue
+    this.Quotations.filter = filterValue
   }
 
-  RetrieveAllOrders(){
-    if(this.route.snapshot.params['client']==='All')
-    {
-      this.orderService.getAllOrders().subscribe(
-      (data: any) => {
-        this.orders = new MatTableDataSource(data); 
-        setTimeout(() => { 
-          this.orders = new MatTableDataSource(data); 
-          this.orders.paginator = this.paginator; 
-          this.orders.sort = this.sort; }); 
-      }   
-    )
-    }
-    else{
+  RetrieveAllQuotations(){
     this.clientService.getClientById(this.route.snapshot.params['client'])
     .subscribe(
       response => {this.client = response}
     )
-    this.orderService.GetOrdersByClient(this.client).
+    this.QuotationService.GetAllQuotationByClient(this.client).
     subscribe(
       (data: any) => {
-        this.orders = new MatTableDataSource(data); 
+        this.Quotations = new MatTableDataSource(data); 
         setTimeout(() => { 
-          this.orders = new MatTableDataSource(data); 
-          this.orders.paginator = this.paginator; 
-          this.orders.sort = this.sort; }); 
+          this.Quotations = new MatTableDataSource(data); 
+          this.Quotations.paginator = this.paginator; 
+          this.Quotations.sort = this.sort; }); 
         }
           
     )
-  }
+
   }
   Modifier(SelectedClient:Client){
-    this.router.navigate(['addOrder',SelectedClient.id])
+    this.router.navigate(['addQuotation',SelectedClient.id])
   }
   Supprimer(SelectedClient){
-    this.orderService.deleteOrderById(SelectedClient).
+    this.QuotationService.deleteQuotationById(SelectedClient).
     subscribe(
-      response => this.RetrieveAllOrders()
+      response => this.RetrieveAllQuotations()
     );
   }
-
-
 }
