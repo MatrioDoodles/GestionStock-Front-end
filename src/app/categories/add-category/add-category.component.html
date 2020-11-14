@@ -23,7 +23,7 @@
                   <mat-form-field [hidden]="!category.catprimary" appearance="outline" class="col">
                     <mat-label>Categorie Primaire</mat-label>
                     <mat-select [(ngModel)]="catprimary" name="catP">
-                        <mat-option *ngFor="let val of categories" value="{{val}}" >{{val.label}}</mat-option> 
+                        <mat-option *ngFor="let val of categories" value="{{val.id}}" >{{val.label}}</mat-option> 
                     </mat-select>
                 </mat-form-field>
             </div>

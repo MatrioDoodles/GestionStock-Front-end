@@ -13,7 +13,7 @@ export class Category{
   public tenantid:number,
   public sous_category:Category[],
   public categoryprimary:Category,
-  public products:Product[],
+  public products:Product[]
   ){}
 }
 export const ENTITY_URL = 'categories'
@@ -34,6 +34,14 @@ export class CategoryService {
    else
    return this.httpClient
     .get<Category[]>(`${API_URL}/${ENTITY_URL}/GetAllCategoriesT/${sessionStorage.getItem('tenantId')}`);
+  }
+  getAllPrimaryCategories(){
+    if(sessionStorage.getItem('role')=== "SUPER_ADMIN" )
+    return this.httpClient
+   .get<Category[]>(`${API_URL}/${ENTITY_URL}/GetAllPrimaryCategorys`);
+   else
+   return this.httpClient
+    .get<Category[]>(`${API_URL}/${ENTITY_URL}/GetAllPrimaryCategorysT/${sessionStorage.getItem('tenantId')}`);
   }
   // getAllCategoriesByTenant(tenantId){
   //   return this.httpClient

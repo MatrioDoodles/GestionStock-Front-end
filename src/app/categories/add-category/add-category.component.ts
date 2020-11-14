@@ -11,7 +11,8 @@ export class AddCategoryComponent implements OnInit {
 
   category: Category
   categories:Category[]
-  catprimary:Category
+  catprimary:any
+  cat:Category
   btnname: string
   constructor(private route: ActivatedRoute,
     private CatService: CategoryService,
@@ -20,14 +21,15 @@ export class AddCategoryComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.CatService.getAllCategories().subscribe(
+    this.CatService.getAllPrimaryCategories().subscribe(
       (response:any) => {
         this.categories = response;
       }
     )
     if (this.route.snapshot.params['updateElement'] === '0') {
       this.category = new Category(null, '', '',false,
-      Number(sessionStorage.getItem('tenantId')), null, null,null)
+      Number(sessionStorage.getItem('tenantId')), null, new Category(null, '', '',false,
+      null,null,null,null),null)
         
       this.btnname = "Ajouter"
     }
@@ -44,8 +46,9 @@ export class AddCategoryComponent implements OnInit {
   }
   submit() {
     if(this.category.catprimary){
-      this.category.categoryprimary = this.catprimary
+      this.category.categoryprimary.id=this.catprimary;
     }
+   console.log(this.category);
     if (this.route.snapshot.params['updateElement'] === "0") {
       this.CatService.AddCategorie(this.category).subscribe(
         response => {
