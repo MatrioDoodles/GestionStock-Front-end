@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_URL } from 'src/app/app.const';
-import { User } from '../users/user.service';
+import { Product } from '../products/product.service';
 
 
 export class Warehouse{
@@ -11,7 +11,7 @@ export class Warehouse{
     public label:string,
     public type:string,
     public tenantid:number,
-    public users:User[]
+    public products:Product[]
   ){}
 }
 export const ENTITY_URL = 'warehouses'

@@ -1,1 +1,49 @@
-<p>list-warehouses works!</p>
+<div>
+ 
+    <mat-accordion *ngFor="let val of Warehouses">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{val.label}}  : {{val.reference}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{val.type}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Reference</th>
+                    <th>Prix d'achat</th>
+                    <th>Prix de revente</th>
+                    <th>Quantité</th>
+                    <th>Date de péremption</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor ="let product of val.products">
+                    <td>{{product.label}}</td>
+                    <td>{{product.reference}}</td>
+                    <td>{{product.buying_price_HT}}</td>
+                    <td>{{product.selling_price_HT}}</td>
+                    <td>{{product.amount}}</td>
+                    <td *ngIf="product.perishable">{{product.expiring_date}}</td>
+                    <td *ngIf="!product.perishable">Produit non perissable</td>
+                    <td> <button mat-stroked-button (click)="Modifier(product)" class="btn btn-war" style="margin-right: 10px;">Modifier</button>
+                        <button mat-stroked-button (click)="Supprimer(product.id)" class="btn btn-dan" style="margin-right: 10px;">Supprimer</button>
+                        <button mat-stroked-button (click)="supply(product.id)" class="btn btn-in" style="margin-right: 10px;">Approvisionner</button>
+                    </td>
+                </tr>
+            </tbody>
+          </table>
+          <button mat-stroked-button (click)="ModifierE(val)" class="btn btn-war" style="margin-right: 10px;">Modifier Entrepot</button>
+          <button mat-stroked-button (click)="SupprimerE(val.id)" class="btn btn-dan" style="margin-right: 10px;">Supprimer Entrepot</button>
+        </mat-expansion-panel>
+      </mat-accordion>
+  <button mat-button routerLink="/addWarehouse/0" class="btn btn-prim btn-lg" style="margin-top: 20px; margin-left: 45%;">
+    Ajouter Un Entrepot
+  </button>
+</div>
+

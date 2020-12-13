@@ -19,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -90,7 +91,8 @@ import { ListQuotationsByClientComponent } from './clients/list-quotations-by-cl
     MatTableModule,
     MatPaginatorModule,
     MatCheckboxModule,
-    CommonModule
+    CommonModule,
+    MatExpansionModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}

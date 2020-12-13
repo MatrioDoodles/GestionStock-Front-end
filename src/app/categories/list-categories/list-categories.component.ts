@@ -46,12 +46,12 @@ export class ListCategoriesComponent implements OnInit {
           subscribe(
             (data: Category[]) => {
               this.categories[i].sous_category = data;
-              setTimeout(() => { 
-                this.categoriesdat = new MatTableDataSource(this.categories); 
-                this.categoriesdat.paginator = this.paginator; 
-                this.categoriesdat.sort = this.sort; }); 
-              
+              // setTimeout(() => { 
+              //   this.categoriesdat = new MatTableDataSource(this.categories); 
+              //   this.categoriesdat.paginator = this.paginator; 
+              //   this.categoriesdat.sort = this.sort; });
             }
+ 
           )
         }
         }

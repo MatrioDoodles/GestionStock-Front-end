@@ -14,6 +14,7 @@ export class Product{
     public selling_price_HT:number,
     public buying_price_HT:number,
     public picture:string,
+    public picFile:File,
     public expiring_date:Date,
     public perishable:boolean,
     public amount:number,
@@ -73,5 +74,14 @@ export class ProductService {
   deleteProductById(Productid){
     return this.httpClient
     .delete(`${API_URL}/${ENTITY_URL}/DelProduct/${Productid}`);
+  }
+  upload(pic:File){
+    return this.httpClient
+   .post(`${API_URL}/${ENTITY_URL}/upload`,pic);
+  }
+
+  getImg(Supplierid){
+    return this.httpClient
+    .get<File>(`${API_URL}/${ENTITY_URL}/img/${Supplierid}`);
   }
 }

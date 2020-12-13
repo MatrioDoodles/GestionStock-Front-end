@@ -1,1 +1,52 @@
-<p>add-supplier works!</p>
+<div class="center-card">
+    <mat-card class="center-card container-lg border" >
+      <mat-card-title style="padding: 20px;">
+        {{btnname}} un Fournisseur
+            </mat-card-title>
+            <mat-card-content>
+              <div class="alert alert-warning" *ngIf="formUser.dirty && formUser.invalid">Veuillez Renseigner tous les champs</div>
+              <form  #formUser="ngForm" >
+                <div class="row">
+                  <mat-form-field appearance="outline" class="col">
+                    <mat-label>Nom Du Fournisseur</mat-label>
+                    <input matInput [(ngModel)]="Supplier.name" name="name" required>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="col">
+                      <mat-label>Téléphone Du Fournisseur</mat-label>
+                      <input matInput [(ngModel)]="Supplier.phone" name="phone" required>
+                  </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field appearance="outline" class="col">
+                    <mat-label>Adresse Du Fournisseur</mat-label>
+                    <input matInput [(ngModel)]="Supplier.adress" name="adress" required>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="col">
+                    <mat-label>Email Du Fournisseur</mat-label>
+                    <input matInput [(ngModel)]="Supplier.mail" name="email" required>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field appearance="outline" class="col">
+                    <mat-label>Référence Du Fournisseur</mat-label>
+                    <input matInput [(ngModel)]="Supplier.reference" name="reference" required>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="col">
+                    <mat-label>Description Du Fournisseur</mat-label>
+                    <input matInput [(ngModel)]="Supplier.description" name="description" required>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                     <mat-label class="btn btn-default">Logo Du Fournisseur 
+                        <input mat-input  name="currentFile" type ="file" accept="image/*" (change)="onFileChange($event)"/>
+                    </mat-label>
+            </div> 
+        </form>
+            </mat-card-content>
+            <mat-card-footer style="padding: 20px;">
+              <button mat-stroked-button (click)="!formUser.invalid && submit()" class="btn-color">{{btnname}}</button>
+              <button mat-stroked-button routerLink="/listSuppliers" >Annuler</button>
+            </mat-card-footer>
+    </mat-card>
+    </div>
+

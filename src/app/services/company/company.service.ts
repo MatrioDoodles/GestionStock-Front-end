@@ -13,6 +13,7 @@ export class Company{
     public adress:string,
     public lang:string,
     public logo:string,
+    public logoImg:File,
     public phone:string,
     public tenantid:number,
     public quotations:Quotation[],
@@ -58,5 +59,15 @@ export class CompanyService {
     return this.httpClient
     .delete(`${API_URL}/${ENTITY_URL}/DelCompany/${Companyid}`);
   }
+  upload(pic:File){
+    return this.httpClient
+   .post(`${API_URL}/${ENTITY_URL}/upload`,pic);
+  }
+
+  getImg(Supplierid){
+    return this.httpClient
+    .get<File>(`${API_URL}/${ENTITY_URL}/img/${Supplierid}`);
+  }
    }
 
+   

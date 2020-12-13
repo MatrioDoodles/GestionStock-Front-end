@@ -28,7 +28,8 @@
       <th mat-header-cell *matHeaderCellDef class="center_elems"> Sous Catégorie </th>
       <td mat-cell *matCellDef="let element" class="center_elems">
         <p *ngIf="!element.sous_category"> Oui</p>
-        <mat-select *ngIf="element.sous_category" [(value)]="element.sous_category[0].label" name="listsouscat"><mat-option *ngFor="let val of element.sous_category" value="{{val.label}}">{{val.label}}</mat-option>
+        <mat-select *ngIf="element.sous_category"  name="listsouscat">
+          <mat-option *ngFor="let val of element.sous_category" value="{{val.label}}">{{val.label}}</mat-option>
         </mat-select>
       </td>
     </ng-container>
