@@ -37,8 +37,8 @@
     <ng-container matColumnDef="listprod">
         <th mat-header-cell *matHeaderCellDef class="center_elems"> Produits de la catégorie </th>
         <td mat-cell *matCellDef="let element" class="center_elems">
-          <p *ngIf="element.products"> Pas de produits dans cette catégorie</p>
-        <mat-select *ngIf="!element.products" [(value)]="element.products[0].label" name="listprod"><mat-option *ngFor="let val of element.products" value="{{val.label}}">{{val.label}}</mat-option> 
+          <p *ngIf="!element.products"> Pas de produits dans cette catégorie</p>
+        <mat-select *ngIf="element.products" name="listprod"><mat-option *ngFor="let val of element.products" value="{{val.label}}">{{val.label}}</mat-option> 
         </mat-select>
         </td>
     </ng-container>

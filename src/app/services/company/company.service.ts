@@ -38,7 +38,7 @@ export class CompanyService {
   getTenantCompany(tenantId){
     
     return this.httpClient
-   .get<Company[]>(`${API_URL}/${ENTITY_URL}/Company/${tenantId}`);
+   .get<Company>(`${API_URL}/${ENTITY_URL}/Company/${tenantId}`);
   }
   getCompanyById(Catid){
     return this.httpClient

@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Category, CategoryService } from 'src/app/services/categories/category.service';
+import { ProductService } from 'src/app/services/products/product.service';
 
 @Component({
   selector: 'app-list-categories',
@@ -20,6 +21,7 @@ export class ListCategoriesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private categoryService:CategoryService,
+              private produitService:ProductService,
               private route:Router) {
    }
 
@@ -41,15 +43,22 @@ export class ListCategoriesComponent implements OnInit {
         //this.categoriesdat = new MatTableDataSource(data); 
         this.categories = data;
         for(let i=0;i<this.categories.length;i++)
-        {if(!this.categories[i].catprimary){
+        { 
+          this.produitService.GetProductsByCategory(this.categories[i]).subscribe(
+          response => {
+            if(response.length != 0 )
+            {this.categories[i].products = response}
+          }
+        )
+          if(!this.categories[i].catprimary){
           this.categoryService.getAllSousCategories(this.categories[i]).
           subscribe(
             (data: Category[]) => {
               this.categories[i].sous_category = data;
-              // setTimeout(() => { 
-              //   this.categoriesdat = new MatTableDataSource(this.categories); 
-              //   this.categoriesdat.paginator = this.paginator; 
-              //   this.categoriesdat.sort = this.sort; });
+              setTimeout(() => { 
+                this.categoriesdat = new MatTableDataSource(this.categories); 
+                this.categoriesdat.paginator = this.paginator; 
+                this.categoriesdat.sort = this.sort; });
             }
  
           )

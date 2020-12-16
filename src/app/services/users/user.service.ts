@@ -11,11 +11,11 @@ export class User{
   constructor(
     public id:number,
     public name:string,
+    public username:string,
     public surname:string,
     public mail:string,
     public phone:string,
     public adress:string,
-    public picture:string,
     public password:string,
     public role:Role,
     public users:User[],
@@ -42,13 +42,13 @@ export const ENTITY_URL = 'users'
 export class UserService {
 
   constructor(private httpClient: HttpClient) { }
-  getAllUsers(tenant){
+  getAllUsers(){
     if(sessionStorage.getItem('role')=== "SUPER_ADMIN" )
     return this.httpClient
    .get<User[]>(`${API_URL}/${ENTITY_URL}/GetAllUsers`);
    else 
    return this.httpClient
-   .post<User[]>(`${API_URL}/${ENTITY_URL}/GetAllUsersT`,tenant);
+   .get<User[]>(`${API_URL}/${ENTITY_URL}/GetAllUsersT${sessionStorage.getItem('tenantId')}`);
   }
 
   // getUserByTenant(tenant){
@@ -79,5 +79,9 @@ export class UserService {
   deleteUserById(Userid){
     return this.httpClient
     .delete(`${API_URL}/${ENTITY_URL}/DelUser/${Userid}`);
+  }
+  getAllRoles(){
+    return this.httpClient
+   .get<Role[]>(`${API_URL}/roles/GetAllRoles`);
   }
 }

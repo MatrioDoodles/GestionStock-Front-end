@@ -49,9 +49,10 @@ export class AddSupplierComponent implements OnInit {
       this.SupplierService.AddSupplier(this.Supplier).subscribe(
         (resp:Supplier) => {
           this.Supplierresp=resp
+          setTimeout(() => {
           if(this.currentFile!=null){
             this.SupplierService.upload(this.currentFile,this.Supplierresp.id).subscribe()
-            this.router.navigate(['listSuppliers']);}}
+            this.router.navigate(['listSuppliers']);}})}
       );
 
     }
